@@ -35,10 +35,16 @@ function LinksComponent() {
   }, []);
 
 
+  function getUserAddressFromUrl() {
+    const searchParams = new URLSearchParams(window.location.search);
+    return searchParams.get('id');
+  }
+
   const fetchData = async (userAddress) => {
+    const userPubkey = getUserAddressFromUrl();
     try {
       const response = await axios.get(
-        `https://k2-tasknet-ports-3.koii.live/task/HjWJmb2gcwwm99VhyNVJZir3ToAJTfUB4j7buWnMMUEP/linktree/get/${userAddress}`
+        `https://k2-tasknet-ports-3.koii.live/task/HjWJmb2gcwwm99VhyNVJZir3ToAJTfUB4j7buWnMMUEP/linktree/get/${userPubkey}`
       );
       const linktreeData = response.data.data.linktree;
       const publicKey = response.data.publicKey;
@@ -56,7 +62,7 @@ function LinksComponent() {
 
   return (
     <div className="container">
-      <p className="public-key">{truncateAddress(userAddress)} </p>
+      <p className="public-key">{getUserAddressFromUrl()} </p>
       <div className="links">
         {links.map((link, index) => (
           <>
