@@ -62,7 +62,7 @@ function LinksComponent() {
 
   return (
     <div className="container">
-      <p className="public-key">{getUserAddressFromUrl()} </p>
+      <p className="public-key">{getUserAddressFromUrl() || userAddress}</p>
       <div className="links">
         {links.map((link, index) => (
           <>
